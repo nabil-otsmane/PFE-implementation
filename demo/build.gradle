@@ -1,0 +1,29 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.0'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id "me.champeau.jmh" version "0.6.6"
+	id 'java'
+	id 'idea'
+}
+
+group = 'dz.cerist'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compileOnly("org.springframework.boot:spring-boot-devtools")
+	jmh 'org.openjdk.jmh:jmh-core:0.9'
+	jmh 'org.openjdk.jmh:jmh-generator-annprocess:0.9'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
