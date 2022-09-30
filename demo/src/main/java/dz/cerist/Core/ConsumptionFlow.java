@@ -11,7 +11,6 @@ public class ConsumptionFlow {
 	private List<PrimitiveResource> UPR = new ArrayList<PrimitiveResource>();
 	private Event event;
 	private Job.RequestType type;
-	private List<CompositeResource> CF = new ArrayList<CompositeResource>();
 	private int rounds = 0;
 	
 	public ConsumptionFlow(Job job) throws Exception {
@@ -61,61 +60,28 @@ public class ConsumptionFlow {
 
 	private List<CompositeResource> generatePart2() {
 
-		boolean done = false;
-		while (!done && UPR.size() > 1) {
-			done = true;
-			int n = UPR.size();
-			System.out.println("Here!");
-
-			for (int i = 0; i < n - 1; i++) {
-				boolean throughAll = true;
-				PrimitiveResource ri = UPR.get(i);
-				CompositeResource ci;
-				
-				if (ri instanceof CompositeResource) {
-					ci = (CompositeResource)ri;
-				}
-				else {
-					ci = new CompositeResource(ri);
-				}
-				
-				
-				for (int j = i + 1; j < n; j++) {
-					
-					Relation r = new Relation(ci, UPR.get(j));
-					if (r.getType() != RelationType.precedes && r.getType() != RelationType.meets) {
-						CompositeResource c = new CompositeResource(r, event);
-						
-						if (CF.contains(c))
-							continue;
-						done = false;
-			
-						ci = c;
-					} else {
-						throughAll = false;
-					}
-					
-				}
-				
-				CF.add(ci);
-				if (throughAll) {
-					break;
-				}
-
-			}
-
-			UPR.clear();
-			UPR.addAll(CF);
-			CF.clear();
-		}
-
+		List<PrimitiveResource> UPRCopy = new ArrayList<>();
 		List<CompositeResource> result = new ArrayList<>();
-		for (PrimitiveResource r: UPR) {
-			if (!(r instanceof CompositeResource)) {
-				System.out.println("NOO!!!!");
-			} else {
-				result.add((CompositeResource)r);
+
+		UPRCopy.addAll(UPR);
+
+		while (UPRCopy.size() != 0) {
+			List<PrimitiveResource> remaining = new ArrayList<>();
+			CompositeResource first = new CompositeResource(UPRCopy.get(0));
+
+			for (int i = 1; i < UPRCopy.size(); i++) {
+				Relation r = new Relation(first, UPRCopy.get(i));
+
+				if (r.getType() != RelationType.precedes && r.getType() != RelationType.meets) {
+					first = new CompositeResource(r, event);
+				} else {
+					remaining.add(UPRCopy.get(i));
+				}
 			}
+
+			result.add(first);
+			UPRCopy.clear();
+			UPRCopy.addAll(remaining);
 		}
 
 		return result;

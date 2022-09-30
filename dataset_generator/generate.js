@@ -42,26 +42,28 @@ function generateFile(path, begin, end, n, fn) {
     input.pipe(file);
 }
 
-function main(prefix, fn) {
-    generateFile(prefix + "generated1.json", 69, 73, 15, fn);
-    generateFile(prefix + "generated2.json", 69, 73, 150, fn);
-    generateFile(prefix + "generated3.json", 69, 73, 1500, fn);
-    generateFile(prefix + "generated4.json", 69, 73, 15000, fn);
-    generateFile(prefix + "generated5.json", 69, 73, 150000, fn);
-}
+generateFile('test.json', 50, 80, 30, generateInterval);
 
-main("all_", generateInterval);
-main("part_", generateIntervalPart);
+// function main(prefix, fn) {
+//     generateFile(prefix + "generated1.json", 69, 73, 15, fn);
+//     generateFile(prefix + "generated2.json", 69, 73, 150, fn);
+//     generateFile(prefix + "generated3.json", 69, 73, 1500, fn);
+//     generateFile(prefix + "generated4.json", 69, 73, 15000, fn);
+//     generateFile(prefix + "generated5.json", 69, 73, 150000, fn);
+// }
 
-function generationTest() {
-    const [begin, end] = [2, 5];
+// main("all_", generateInterval);
+// main("part_", generateIntervalPart);
+
+// function generationTest() {
+//     const [begin, end] = [2, 5];
     
-    for (let i = 0; i < 5000000; i++) {
-        const [newBegin, newEnd] = generateInterval(begin, end, 10);
+//     for (let i = 0; i < 5000000; i++) {
+//         const [newBegin, newEnd] = generateInterval(begin, end, 10);
 
-        if (newBegin < 0 || newBegin > begin)
-            throw "wrong begin " + newBegin;
-        if (newEnd < end || newEnd > 10)
-            throw "wrong end " + newEnd;
-    }
-}
+//         if (newBegin < 0 || newBegin > begin)
+//             throw "wrong begin " + newBegin;
+//         if (newEnd < end || newEnd > 10)
+//             throw "wrong end " + newEnd;
+//     }
+// }

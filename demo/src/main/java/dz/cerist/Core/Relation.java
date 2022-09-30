@@ -21,56 +21,73 @@ public class Relation {
 	
 	private RelationType identifyType() {
 
-		if (PR1.getBeginTime() == PR2.getBeginTime()) {
-			
-			if (PR1.getEndTime() == PR2.getEndTime()) {
-				
-				return RelationType.equals;
-			} else {
-				
-				if (PR1.getEndTime() > PR2.getEndTime())
-					swap();
-				return RelationType.starts;
-			}
-			
-		} else { 
-			if (PR1.getEndTime() == PR2.getEndTime()) {
-				
-				if (PR1.getBeginTime() < PR2.getBeginTime()) {
-					
-					swap();
-				}
-				return RelationType.finishes;
-			} else {
-				if (PR1.getEndTime() == PR2.getBeginTime() || PR2.getEndTime() == PR1.getBeginTime())
-					return RelationType.meets;
-				if (PR1.getBeginTime() > PR2.getBeginTime()) {
-
-					if (PR2.getEndTime() < PR1.getBeginTime())
-						return RelationType.precedes;
-					
-					if (PR1.getEndTime() < PR2.getEndTime()) {
-						
-						return RelationType.during;						
-					} else {
-
-						swap();
-						
-						return RelationType.overlaps;
-					}
-				} else {
-
-					if (PR2.getEndTime() < PR1.getBeginTime())
-						return RelationType.precedes;
-
-					if (PR1.getEndTime() > PR2.getBeginTime()) {
-						
-						return RelationType.overlaps;
-					}
-				}
-			}
+		// equals
+		if (PR1.getBeginTime() == PR2.getBeginTime() && PR1.getEndTime() == PR2.getEndTime()) {
+			return RelationType.equals;
 		}
-		return RelationType.precedes;
+
+		// meets
+		if (PR1.getEndTime() == PR2.getBeginTime()) {
+			return RelationType.meets;
+		}
+
+		if (PR2.getEndTime() == PR1.getBeginTime()) {
+			swap();
+			return RelationType.meets;
+		}
+
+		// precedes
+		if (PR1.getEndTime() < PR2.getBeginTime()) {
+			return RelationType.precedes;
+		}
+
+		if (PR2.getEndTime() < PR1.getBeginTime()) {
+			swap();
+			return RelationType.precedes;
+		}
+
+		// finishes
+		if (PR1.getEndTime() == PR2.getEndTime()) {
+
+			if (PR2.getBeginTime() > PR1.getBeginTime())
+				swap();
+
+			return RelationType.finishes;
+		}
+
+		// starts
+		if (PR1.getBeginTime() == PR2.getBeginTime()) {
+
+			if (PR1.getEndTime() > PR2.getEndTime())
+				swap();
+
+			return RelationType.starts;
+		}
+
+		// during
+		if (PR1.getBeginTime() > PR2.getBeginTime() && PR1.getEndTime() < PR2.getEndTime()) {
+			return RelationType.during;
+		}
+
+		if (PR2.getBeginTime() > PR1.getBeginTime() && PR2.getEndTime() < PR1.getEndTime()) {
+			swap();
+
+			return RelationType.during;
+		}
+
+		// overlaps
+		if (PR1.getBeginTime() < PR2.getBeginTime() && PR1.getEndTime() < PR2.getEndTime()) {
+			return RelationType.overlaps;
+		}
+
+		if (PR2.getBeginTime() < PR1.getBeginTime() && PR2.getEndTime() < PR1.getEndTime()) {
+			swap();
+
+			return RelationType.overlaps;
+		}
+
+		return RelationType.overlaps;
+
 	}
 
 	public RelationType getType() {
@@ -115,28 +132,15 @@ public class Relation {
 
 	public int getBeginTime() {
 		if (PR1.getType() == ResourceType.LimitedExtensiblePR) {
-			// LOOKSS WRONG !!!
 			return PR1.getBeginTime();
-			// PR12.setPR1(PR12.getPR1().getBeginTime(), PR12.getPR2().getEndTime());
-//			((LimitedExtensiblePR)PR12.getPR1()).extend(PR12.getPR2().getEndTime() - PR12.getPR1().getEndTime());
 		}
 		if (getType() == RelationType.overlaps) {
 			
 
 			return PR2.getBeginTime();
-			// PR12.setPR1(PR12.getPR2().getBeginTime(), PR12.getPR1().getEndTime());
-			// PR12.setPR2(PR12.getPR2().getBeginTime(), PR12.getPR1().getEndTime());
-			
-//			R1.setBeginTime(PR12.getPR2().getBeginTime());
-//			R2.setEndTime(PR12.getPR1().getEndTime());
 		} else {
 
 			return PR1.getBeginTime();
-			
-			// PR12.setPR2(PR12.getPR1().getBeginTime(), PR12.getPR1().getEndTime());
-			
-//			R2.setBeginTime(PR12.getPR1().getBeginTime());
-//			R2.setEndTime(PR12.getPR1().getEndTime());
 		}
 	}
 
@@ -144,26 +148,14 @@ public class Relation {
 		if (PR1.getType() == ResourceType.LimitedExtensiblePR) {
 			
 			return PR2.getEndTime();
-			// PR12.setPR1(PR12.getPR1().getBeginTime(), PR12.getPR2().getEndTime());
-//			((LimitedExtensiblePR)PR12.getPR1()).extend(PR12.getPR2().getEndTime() - PR12.getPR1().getEndTime());
 		}
 		if (getType() == RelationType.overlaps) {
 			
 
 			return PR1.getEndTime();
-			// PR12.setPR1(PR12.getPR2().getBeginTime(), PR12.getPR1().getEndTime());
-			// PR12.setPR2(PR12.getPR2().getBeginTime(), PR12.getPR1().getEndTime());
-			
-//			R1.setBeginTime(PR12.getPR2().getBeginTime());
-//			R2.setEndTime(PR12.getPR1().getEndTime());
 		} else {
 
 			return PR1.getEndTime();
-			
-			// PR12.setPR2(PR12.getPR1().getBeginTime(), PR12.getPR1().getEndTime());
-			
-//			R2.setBeginTime(PR12.getPR1().getBeginTime());
-//			R2.setEndTime(PR12.getPR1().getEndTime());
 		}
 	}
 

@@ -3,9 +3,6 @@ package dz.cerist.Core;
 import java.util.HashSet;
 import java.util.Set;
 
-import dz.cerist.Core.Relation.RelationType;
-
-
 public class CompositeResource extends PrimitiveResource {
 	
 	private Event event;
