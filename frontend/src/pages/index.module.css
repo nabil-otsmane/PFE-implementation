@@ -1,0 +1,9 @@
+.container {
+    display: flex;
+    width: 100%;
+    background-color: #EAFFE5;
+}
+
+.container > div {
+    flex: 1;
+}

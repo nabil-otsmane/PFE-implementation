@@ -1,0 +1,54 @@
+.generation {
+    flex: 1;
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    align-items: center;
+}
+
+.button-container {
+    background: #EAFFE5;
+}
+
+.generation button {
+    margin: 30px;
+    padding: 15px 30px;
+    place-self: flex-start;
+}
+
+.file-tab {
+    display: inline-flex;
+    height: 86px;
+    width: 290px;
+    background-color: #EAFFE5;
+    border-top-right-radius: 20px;
+    border: 1px #5553 solid;
+    border-left: none;
+    border-top: none;
+}
+
+.file-tab.selected {
+    background: #65EE43;
+}
+
+.file-tab span {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.file-tab img {
+    margin: 20px;
+}
+
+.tabsContainer {
+    background-color: #EAFFE5;
+    width: max-content;
+    border-top-right-radius: 20px;
+    border-top: 1px solid #5553;
+}
+
+.fileGraph {
+    background: #EAFFE5;
+    align-self: stretch;
+}

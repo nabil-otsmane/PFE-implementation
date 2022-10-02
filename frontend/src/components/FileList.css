@@ -1,0 +1,103 @@
+.container {
+    padding: 80px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    align-content: stretch;
+    position: relative;
+}
+
+.container::after {
+    content: '';
+    width: 15px;
+    height: 40%;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #4FCD2F;
+    border-radius: 15px;
+}
+
+.files-container {
+    overflow: auto;
+    margin-block: 10px;
+}
+
+.scrollable {
+    overflow: auto;
+}
+
+.bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 25px;
+    background-color: #AFFF9A;
+    border-radius: 20px;
+    margin-bottom: 15px;
+}
+
+.bar > div {
+    display: flex;
+    align-items: stretch;
+}
+
+.side-text {
+    writing-mode: tb-rl;
+    transform: rotate(-180deg);
+    font-size: 22px;
+    font-weight: 700;
+    margin-right: 15px;
+    margin-left: 20px;
+}
+
+.left-container {
+    display: flex;
+    align-items: center;
+}
+
+.left-container > p {
+    font-size: 28px;
+    font-weight: 600;
+    margin-block: 15px;
+    margin-left: 25px;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+}
+
+.input-circle {
+    width: 40px;
+    height: 40px;
+    margin-left: 15px;
+    border-radius: 50%;
+    border: 3px solid #4FCD2F;
+    display: inline-block;
+    display: grid;
+    place-content: center;
+}
+
+.input-circle > div {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: #4FCD2F;
+}
+
+.generate-container > button {
+    width: 100%;
+    padding: 30px;
+    font-size: 28px;
+    font-weight: 600;
+    color: white;
+    background-color: #4FCD2F;
+    outline: none;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.generate-container > button:active {
+    opacity: 80%;
+}
